@@ -1,0 +1,114 @@
+ChangeLog for conn-check
+========================
+
+1.0.18 (2015-04-13)
+-------------------
+
+ - Ensure pyOpenSSL is always used instead of the ssl modules,
+   see https://urllib3.readthedocs.org/en/latest/security.html#pyopenssl.
+
+1.0.17 (2015-04-08)
+-------------------
+
+ - Unpin python-requests for wider distribution (e.g. precise).
+
+1.0.16 (2015-03-06)
+-------------------
+
+ - Add --include-tags and --exclude-tags args with support for the `tags` YAML check field.
+
+1.0.15 (2015-02-24)
+-------------------
+
+ - Package manifest fixes for debian package release.
+
+
+1.0.13 (26-11-2014)
+-------------------
+
+ - Output is not buffered and ordered, with FAILED checks first, skipped last,
+   and each check grouped by {type}:{host/url}.
+ - TCP subchecks triggered by a HTTP check are prefixed as such.
+ - There is now a -U/--unbuffered-output option to disable buffered/ordered output
+   and write out to STDOUT as soon as a result is collected.
+
+1.0.12 (17-11-2014)
+-------------------
+
+ - Command aliasing refactored, and more aliases added.
+
+1.0.11 (04-11-2014)
+-------------------
+
+ - Disabled 30x redirects in HTTP checks by default, fixing regression introduced by requests switch.
+ - Added python-requests specific options for proxy, param, cookie and auth control in HTTP checks.
+
+1.0.10 (30-10-2014)
+-------------------
+
+ - Added a mongodb check type.
+
+1.0.9 (23-10-2014)
+------------------
+
+ - Added --max-timeout CLI option to restrict maximum execution time.
+ - Added connection timeouts to HTTP and PostgreSQL checks.
+ - Added --connect-timeout CLI option to set global connection timeout.
+ - Added timeout option to each individual check to override global connection timeout.
+
+1.0.8 (22-10-2014)
+------------------
+
+ - Switched to using txrequests for HTTP requests with better proxy support.
+ - Fixed UDP checks targetting host rather than IP if available.
+ - Fixed initial TCP check for HTTP checks targetting upstream instead of proxy.
+
+1.0.7 (09-10-2014)
+------------------
+
+ - Fixed HTTP proxy error in HTTP checks due to typo.
+
+1.0.6 (06-10-2014)
+
+ - Fixed dependencies when installing from local dir.
+ - Made improvements to readme.
+
+
+1.0.5 (03-10-2014)
+------------------
+
+ - Added optional headers and body arguments to HTTP checks.
+
+
+1.0.4 (29-09-2014)
+------------------
+
+ - Added HTTP proxy support to http checks
+ - Fixed issue with loading duplicate SSL CA certificates, and added flag to load from a custom dir
+
+
+1.0.3 (24-09-2014)
+------------------
+
+ - Removed config_generators module to it's own package: conn-check-configs
+
+
+1.0.2 (22-09-2014)
+------------------
+
+ - Added a script to auto-generate conn-check config YAML from a Django settings module
+
+
+1.0.1 (18-09-2014)
+------------------
+
+ - Trivial release to fix setup.py tags
+
+
+1.0.0 (18-09-2014)
+------------------
+
+ - Initial release
+ - Broken free of UbuntuOne
+ - Nagios compatible output
+ - YAML configuration

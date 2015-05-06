@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python-virtualenv
+
+REQUIREMENTS_ARGS := --extra-pip-arg "-r" --extra-pip-arg "./redis-requirements.txt" \
+	--extra-pip-arg "-r" --extra-pip-arg "amqp-requirements.txt" \
+	--extra-pip-arg "-r" --extra-pip-arg "mongodb-requirements.txt" \
+	--extra-pip-arg "-r" --extra-pip-arg "postgres-requirements.txt"
+override_dh_virtualenv:
+	dh_virtualenv --pypi-url file://$(CURDIR)/debian/pythoncache/simple --use-system-packages $(REQUIREMENTS_ARGS)
+	sed -i '/^requests/d' ./debian/conn-check/usr/share/python/conn-check/lib/python2.7/site-packages/txrequests-*.egg-info/requires.txt
+	sed -i '/^requests/d' ./debian/conn-check/usr/share/python/conn-check/lib/python2.7/site-packages/cryptography-*.egg-info/requires.txt
+	sed -i '/^six/d' ./debian/conn-check/usr/share/python/conn-check/lib/python2.7/site-packages/cryptography-*.egg-info/requires.txt
+
+override_dh_auto_clean:
+	python setup.py clean -a
+	find . -name \*.pyc -exec rm {} \;
+
+override_dh_auto_build:
+override_dh_auto_test:
